@@ -1,0 +1,18 @@
+{
+  "name": "projet_ift717_favorfood",
+  "version": "1.0.0",
+  "description": "Projet de fin de session d'automne UDeS ift717_Application internet et mobilité",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NomaBouh",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.2"
+  }
+}
