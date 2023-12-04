@@ -5,6 +5,8 @@ const http = require('http');
 
 const userRoutes = require('./src/api/routes/userRoutes');
 
+require('./src/config/db');
+
 const app = express();
 const server = http.createServer(app);
 
