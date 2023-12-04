@@ -4,9 +4,8 @@ const bcrypt = require('bcrypt');
 const userController = {
     async createUser(req, res) {
         try {
-            const { username, lastname, password, location, postcode, city, email, solde } = req.body;
-            this.password = await bcrypt.hash(this.password, 12);
-            const newUser = new User({ username, lastname, password, location, postcode, city, email, solde });
+            const { username, lastname, password, location, postcode, city, email } = req.body;
+            const newUser = new User({ username, lastname, password, location, postcode, city, email });
             await newUser.save();
             res.status(201).json(newUser);
         } catch (error) {
@@ -72,7 +71,7 @@ const userController = {
                 return res.status(401).json({ message: "Wrong password or username" });
             }
 
-            if (bcrypt.compare(req.params.password, user.password){
+            if (bcrypt.compare(req.params.password, user.password)) {
                 return res.status(200).json({ message: "User successfully connected" });
             } else {
                 return res.status(404).json({ message: "Wrong password or username" });
