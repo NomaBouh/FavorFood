@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     location: { type: String, require: true },
     postcode: { type: String, require: true },
     city: { type: String, require: true },
-    Solde: { type: Number, default: 0 },
+    solde: { type: Number, default: 0 },
     // Autres champs pertinents pour un utilisateur
 });
 
