@@ -8,7 +8,7 @@ const foodSchema = new mongoose.Schema({
     expiryDate: {type: Date, required:true},
     idDonator:{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     idClient: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false }
-});
+}, { versionKey: false });
 
 const Food = mongoose.model('Food', foodSchema);
 module.exports = Food;

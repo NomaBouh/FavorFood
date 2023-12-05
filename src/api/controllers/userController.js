@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 const userController = {
     async createUser(req, res) {
         try {
-            const { username, lastname, password, location, postcode, city, email } = req.body;
-            const newUser = new User({ username, lastname, password, location, postcode, city, email });
+            const { username, lastname, password, location, postcode, city, email, solde } = req.body;
+            const newUser = new User({ username, lastname, password, location, postcode, city, email, solde });
             await newUser.save();
             res.status(201).json(newUser);
         } catch (error) {
