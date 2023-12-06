@@ -21,8 +21,8 @@ exports.createFood = async (req, res) => {
         quantity: req.body.quantity,
         allergen: req.body.allergen,
         expiryDate: req.body.expiryDate,
-        idDonator: req.body.idClient, // ID de l'utilisateur associé à cet aliment
-        idClient: req.body.idClient, // ID de l'utilisateur associé à cet aliment
+        idDonator: req.body.idDonator, // ID de l'utilisateur associé à cet aliment
+        // idClient: req.body.idClient, // ID de l'utilisateur associé à cet aliment
     });
 
     try {
@@ -30,6 +30,7 @@ exports.createFood = async (req, res) => {
         res.status(201).json(newFood);
     } catch (err) {
         res.status(400).json({ message: err.message });
+        console.log(err)
     }
 };
 
@@ -43,8 +44,11 @@ exports.getFoodById = async (req, res) => {
         res.json(food);
     } catch (err) {
         res.status(500).json({ message: err.message });
+        console.log(err)
     }
 };
+
+
 
 // Mettre à jour un aliment
 exports.updateFood = async (req, res) => {

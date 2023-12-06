@@ -5,7 +5,7 @@ const foodSchema = new mongoose.Schema({
     description: { type: String, required: true},
     quantity: { type: Number, required: true },
     allergen: {type: [String], required:true},
-    expiryDate: {type: Date, required:true},
+    expiryDate: {type: String, required:true},
     idDonator:{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     idClient: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false }
 }, { versionKey: false });

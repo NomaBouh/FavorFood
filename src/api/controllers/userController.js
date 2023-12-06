@@ -1,5 +1,6 @@
 const User = require('../../models/user');
 const bcrypt = require('bcrypt');
+const Food = require("../models/food");
 
 const userController = {
     async createUser(req, res) {
@@ -26,12 +27,30 @@ const userController = {
     },
 
     async getAllUsers(req, res) {
+        console.log("enter")
         try {
             const users = await User.find({});
 
             res.json(users);
         } catch (error) {
             res.status(500).json({ message: error.message });
+            console.log(err)
+        }
+    },
+
+     async getUserByCity(req, res) {
+        try {
+            const parameter = req.params.city;
+            const users = await User.find({ city: parameter });
+
+            if (!users) {
+                return res.status(404).json({ message: "Users not found" });
+            }
+
+            res.json(users);
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+            console.log(err)
         }
     },
 
