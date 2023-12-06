@@ -21,7 +21,7 @@ exports.createFood = async (req, res) => {
         quantity: req.body.quantity,
         allergen: req.body.allergen,
         expiryDate: req.body.expiryDate,
-        idDonator: req.body.idClient, // ID de l'utilisateur associé à cet aliment
+        idDonator: req.body.idDonator, // ID de l'utilisateur associé à cet aliment
         idClient: req.body.idClient, // ID de l'utilisateur associé à cet aliment
     });
 
