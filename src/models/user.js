@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     solde: { type: Number, require: true },
     // Autres champs pertinents pour un utilisateur
-});
+}, { versionKey: false });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

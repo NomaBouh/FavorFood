@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     postcode: { type: String, require: true },
     city: { type: String, require: true },
     Solde: { type: Number, default: 0 },
+    // Autres champs pertinents pour un utilisateur
 });
 
 const User = mongoose.model('User', userSchema);
