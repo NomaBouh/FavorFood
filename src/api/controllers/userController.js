@@ -1,4 +1,5 @@
 const User = require('../../models/user');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const userController = {
@@ -19,12 +20,12 @@ const userController = {
             });
         } catch (error) {
             res.status(500).json({ message: error.message });
-        }        
+        }
     },
 
     async getUser(req, res) {
         try {
-            const user = await User.findById(req.params.id);
+            const user = await User.findById(req.user.userId);
             if (!user) {
                 return res.status(404).json({ message: "User not found" });
             }
@@ -74,37 +75,34 @@ const userController = {
     },
 
     async loginUser(req, res) {
-        /*try {
-            const user = await User.findById(req.params.id);
-            if (!user) {
-                return res.status(401).json({ message: "Wrong password or username" });
-            }
-
-            if (bcrypt.compare(req.params.password, user.password)) {
-                return res.status(200).json({ message: "User successfully connected" });
-            } else {
-                return res.status(404).json({ message: "Wrong password or username" });
-            }
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }*/
-
         try {
             const { email, password } = req.body;
+            console.log("Login attempt for:", email);
+
             const user = await User.findOne({ email });
             if (!user) {
+                console.log("User not found");
                 return res.status(401).json({ message: "User not found" });
             }
 
             if (password != user.password) {
+                console.log("Invalid password");
                 return res.status(401).json({ message: "Invalid password" });
             }
 
-            res.status(200).json({ message: "User successfully connected" });
+            const token = jwt.sign(
+                { userId: user._id },
+                process.env.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
+            console.log("Connection approved");
+            res.status(200).json({ message: "User successfully connected", token });
         } catch (error) {
+            console.log("Error in loginUser:", error.message);
             res.status(500).json({ message: error.message });
         }
     }
+
 
 }
 
