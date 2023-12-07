@@ -27,14 +27,12 @@ const userController = {
     },
 
     async getAllUsers(req, res) {
-        console.log("enter")
         try {
             const users = await User.find({});
 
             res.json(users);
         } catch (error) {
             res.status(500).json({ message: error.message });
-            console.log(err)
         }
     },
 
@@ -50,7 +48,6 @@ const userController = {
             res.json(users);
         } catch (err) {
             res.status(500).json({ message: err.message });
-            console.log(err)
         }
     },
 
