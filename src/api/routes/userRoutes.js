@@ -6,8 +6,11 @@ const authenticateToken = require('../../middlewares/auth');
 router.post('/', userController.createUser);
 router.get('/:id', userController.getUser);
 router.get('/', userController.getAllUsers);
-router.put('/:id',  userController.updateUser);
-router.delete('/:id',  userController.deleteUser);
-router.post('/login', userController.loginUser); 
+
+router.get('/city/:city', userController.getUserByCity);
+router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
+router.get('/login', userController.loginUser);
+
 
 module.exports = router;

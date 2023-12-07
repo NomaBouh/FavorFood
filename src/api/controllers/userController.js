@@ -1,6 +1,7 @@
 const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Food = require("../models/food");
 
 const userController = {
     // Creation de User
@@ -24,7 +25,7 @@ const userController = {
         }
     },
 
-    // RÈcupÈration d'un Users'
+    // R√©cup√©ration d'un Users
     async getUser(req, res) {
         try {
             const user = await User.findById(req.user.userId);
@@ -37,7 +38,7 @@ const userController = {
         }
     },
 
-    // RÈcupÈration de l'ensemble des Users
+    // R√©cup√©ration de l'ensemble des Users
     async getAllUsers(req, res) {
         try {
             const users = await User.find({});
@@ -48,7 +49,23 @@ const userController = {
         }
     },
 
-    // Mise a jour des ÈlÈments d'un User
+    // R√©cup√©rer User en utilisant la ville associ√©
+     async getUserByCity(req, res) {
+        try {
+            const parameter = req.params.city;
+            const users = await User.find({ city: parameter });
+
+            if (!users) {
+                return res.status(404).json({ message: "Users not found" });
+            }
+
+            res.json(users);
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
+
+    // Mise a jour des √©l√©ments d'un User
     async updateUser(req, res) {
         try {
             const { id } = req.params;
@@ -85,7 +102,7 @@ const userController = {
             const { email, password } = req.body;
             console.log("Login attempt for:", email);
 
-            // VÈrification de l'Èxistance de la donnÈe et de la validitÈ du password
+            // V√©rification de l'√©xistance de la donn√©e et de la validit√© du password
             const user = await User.findOne({ email });
             if (!user) {
                 console.log("User not found");
@@ -97,7 +114,7 @@ const userController = {
                 return res.status(401).json({ message: "Invalid password" });
             }
 
-            // CrÈation du token avec une durÈ de validitÈ de 1 heure
+            // Cr√©ation du token avec une dur√© de validit√© de 1 heure
             const token = jwt.sign(
                 { userId: user._id },
                 process.env.JWT_SECRET,

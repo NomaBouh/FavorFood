@@ -46,6 +46,8 @@ exports.getFoodById = async (req, res) => {
     }
 };
 
+
+
 // Mettre à jour un aliment
 exports.updateFood = async (req, res) => {
     try {
