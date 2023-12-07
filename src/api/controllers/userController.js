@@ -121,7 +121,7 @@ const userController = {
                 { expiresIn: '1h' }
             );
             console.log("Connection approved");
-            res.status(200).json({ message: "User successfully connected", token });
+            //res.status(200).json({ message: "User successfully connected", token, "userId": user._id });
         } catch (error) {
             console.log("Error in loginUser:", error.message);
             res.status(500).json({ message: error.message });
