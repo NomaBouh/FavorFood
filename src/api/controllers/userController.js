@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const userController = {
+    // Creation de User
     async createUser(req, res) {
         try {
             const { username, lastname, password, location, postcode, city, email, solde } = req.body;
@@ -23,6 +24,7 @@ const userController = {
         }
     },
 
+    // Récupération d'un Users'
     async getUser(req, res) {
         try {
             const user = await User.findById(req.user.userId);
@@ -35,6 +37,7 @@ const userController = {
         }
     },
 
+    // Récupération de l'ensemble des Users
     async getAllUsers(req, res) {
         try {
             const users = await User.find({});
@@ -45,6 +48,7 @@ const userController = {
         }
     },
 
+    // Mise a jour des éléments d'un User
     async updateUser(req, res) {
         try {
             const { id } = req.params;
@@ -60,6 +64,7 @@ const userController = {
         }
     },
 
+    // Suppression d'un User
     async deleteUser(req, res) {
         try {
             const { id } = req.params;
@@ -74,11 +79,13 @@ const userController = {
         }
     },
 
+    // Gestion de la connection
     async loginUser(req, res) {
         try {
             const { email, password } = req.body;
             console.log("Login attempt for:", email);
 
+            // Vérification de l'éxistance de la donnée et de la validité du password
             const user = await User.findOne({ email });
             if (!user) {
                 console.log("User not found");
@@ -90,6 +97,7 @@ const userController = {
                 return res.status(401).json({ message: "Invalid password" });
             }
 
+            // Création du token avec une duré de validité de 1 heure
             const token = jwt.sign(
                 { userId: user._id },
                 process.env.JWT_SECRET,
